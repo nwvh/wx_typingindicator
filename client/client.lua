@@ -1,7 +1,7 @@
 function DrawText3Ds(x, y, z, text)
   local _, x1, y1 = World3dToScreen2d(x, y, z)
   local fontId = RegisterFontId('BBN')
-  SetTextScale(0.55, 0.55)
+  SetTextScale(0.35, 0.35)
   SetTextFont(fontId)
   SetTextProportional(1)
   SetTextEntry("STRING")
@@ -11,7 +11,7 @@ function DrawText3Ds(x, y, z, text)
   AddTextComponentString(text)
   DrawText(x1, y1)
   local factor = (string.len(text)) / 320
-  DrawRect(x1,y1+0.0200, 0.015+ factor, 0.04, 0, 0, 0, 68)
+  DrawRect(x1,y1+0.01350, 0.0015+ factor, 0.025, 0, 0, 0, 68)
 end
 
 local dots = 1
@@ -42,7 +42,9 @@ CreateThread(function ()
       for k,v in pairs(coords) do
         if coords[k] then
           local x,y,z = table.unpack(coords[k])
-          DrawText3Ds(x, y, z+1, string)
+          if #(GetEntityCoords(PlayerPedId())-coords[k]) < 15.0 then
+            DrawText3Ds(x, y, z+1, string)
+          end
         end
       end
   end
